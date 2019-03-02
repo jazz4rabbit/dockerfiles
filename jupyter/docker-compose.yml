@@ -1,0 +1,25 @@
+version: '3'
+services:
+  notebook:
+    image: jupyter/minimal-notebook
+    volumes:
+      - ${LOCAL_WORKING_DIR}:/home/jovyan/work
+    #  - ${LOCAL_SSL_CERTS}:/etc/ssl/notebook
+    environment:
+      - NB_UID=${NB_UID}
+      - NB_GID=${NB_GID}
+    user: root
+    ports:
+      - ${PORT}:8888
+    container_name: jupyter_notebook
+    command: [ "start-notebook.sh"
+              ,"--NotebookApp.password=${ACCESS_TOKEN}"
+              ,"--NotebookApp.notebook_dir=/home/jovyan/work"
+              #,"--NotebookApp.certfile=/etc/ssl/notebook/jupyter.pem"
+             ]
+    # jupyter lab command
+    #command: [ "start.sh", "jupyter", "lab"
+    #          ,"--NotebookApp.password=${ACCESS_TOKEN}"
+    #          ,"--NotebookApp.notebook_dir=/home/jovyan/work"
+    #          #,"--NotebookApp.certfile=/etc/ssl/notebook/jupyter.pem"
+    #         ]
