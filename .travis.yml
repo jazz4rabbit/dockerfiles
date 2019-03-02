@@ -1,0 +1,10 @@
+services:
+  - docker
+
+install:
+  - docker build -t jazz4rabbit/python-weka-notebook ./python-weka-notebook/
+  - docker run -d -p 8888:8888 --user root -v $PWD/python-weka-notebook/work:/home/jovyan/work --name weka-notebook jazz4rabbit/python-weka-notebook
+
+script:
+  - docker ps | grep -q "\bweka-notebook\b"
+

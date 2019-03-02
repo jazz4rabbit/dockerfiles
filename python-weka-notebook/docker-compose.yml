@@ -1,0 +1,21 @@
+version: '3'
+services:
+  notebook:
+    build:
+      context: .
+    #image: jupyter/minimal-notebook
+    container_name: weka-notebook
+    hostname: kakaopay
+    user: root
+    environment:
+      - GRANT_SUDO=${GRANT_SUDO}
+    ports:
+      - ${PORT}:8888
+    volumes:
+      - ./work:/home/jovyan/work
+    entrypoint:
+      - start-notebook.sh
+    command: 
+      - --NotebookApp.notebook_dir=/home/jovyan/work
+      - --NotebookApp.password=${NB_PASSWORD}
+
